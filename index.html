@@ -6,7 +6,6 @@
     <title>HAFIZ CLOTH SHOWROOM | Nampally, Hyderabad — Official Flagship Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Bulletproof global helper functions defined immediately in head
         window.introTimer = null;
         window.closeIntroVideo = function() {
             if (window.introTimer) clearInterval(window.introTimer);
@@ -73,13 +72,11 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #09090b; -webkit-tap-highlight-color: transparent; }
         .font-display { font-family: 'Oswald', sans-serif; }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f4f4f5; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb { background: #a1a1aa; border-radius: 4px; }
-        .custom-h-scroll::-webkit-scrollbar { height: 5px; display: block; }
-        .custom-h-scroll::-webkit-scrollbar-track { background: #e4e4e7; border-radius: 9999px; }
-        .custom-h-scroll::-webkit-scrollbar-thumb { background: #18181b; border-radius: 9999px; }
-        .custom-h-scroll { scrollbar-width: thin; scrollbar-color: #18181b #e4e4e7; }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #f4f4f5; }
+        ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .marquee-track { display: flex; width: max-content; animation: marquee 28s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
@@ -88,7 +85,7 @@
 </head>
 <body class="bg-white text-zinc-950 antialiased min-h-screen flex flex-col selection:bg-black selection:text-white overflow-x-hidden pb-16 md:pb-0">
 
-    <!-- Intro Video Overlay (Clickable to dismiss instantly) -->
+    <!-- Intro Video Overlay -->
     <div id="intro-video-overlay" onclick="closeIntroVideo()" class="fixed inset-0 z-[100] bg-zinc-950 text-white flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden select-none transition-all duration-300 ease-out cursor-pointer">
         <button type="button" onclick="event.stopPropagation(); closeIntroVideo()" class="absolute top-4 right-4 sm:top-6 sm:right-6 z-25 px-4 py-2 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-[10px] font-extrabold uppercase tracking-widest transition flex items-center gap-1.5 backdrop-blur-md">
             Skip Intro <i data-lucide="x" class="w-3.5 h-3.5"></i>
@@ -191,34 +188,34 @@
     </div>
 
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200/80 shadow-2xs">
-        <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2 sm:gap-3.5 min-w-0 flex-1">
-                <button onclick="toggleHamburgerMenu(true)" aria-label="Menu" class="p-2 sm:p-2.5 rounded-xl bg-zinc-100 hover:bg-black hover:text-white active:scale-95 transition text-zinc-900 border border-zinc-200/80 shrink-0">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+                <button onclick="toggleHamburgerMenu(true)" aria-label="Menu" class="p-2.5 rounded-xl bg-zinc-100 hover:bg-black hover:text-white active:scale-95 transition text-zinc-900 border border-zinc-200/80 shrink-0">
                     <i data-lucide="menu" class="w-5 h-5"></i>
                 </button>
-                <div class="flex items-center gap-2 sm:gap-2.5 cursor-pointer min-w-0" onclick="switchView('store')">
-                    <div class="w-8 h-8 sm:w-11 sm:h-11 rounded-xl bg-zinc-950 text-white flex flex-col items-center justify-center font-display font-bold leading-none shadow-sm shrink-0 border border-zinc-800">
-                        <span class="text-[10px] sm:text-sm tracking-tighter text-amber-400">HAFIZ</span>
+                <div class="flex items-center gap-2.5 cursor-pointer min-w-0" onclick="switchView('store')">
+                    <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-zinc-950 text-white flex flex-col items-center justify-center font-display font-bold leading-none shadow-sm shrink-0 border border-zinc-800">
+                        <span class="text-xs sm:text-sm tracking-tighter text-amber-400">HAFIZ</span>
                     </div>
-                    <div class="min-w-0 flex-1">
-                        <h1 class="font-display font-bold text-sm sm:text-xl md:text-2xl tracking-tight text-zinc-950 uppercase leading-none truncate">HAFIZ CLOTH SHOWROOM</h1>
-                        <p class="text-[8px] sm:text-[10px] text-zinc-500 font-bold tracking-widest uppercase mt-0.5 truncate">Est. 1963 • Nampally, Hyderabad</p>
+                    <div class="truncate">
+                        <h1 class="font-display font-bold text-base sm:text-xl md:text-2xl tracking-tight text-zinc-950 uppercase leading-none truncate">HAFIZ CLOTH SHOWROOM</h1>
+                        <p class="text-[9px] sm:text-[10px] text-zinc-500 font-bold tracking-widest uppercase mt-0.5 truncate">Est. 1963 • Nampally, Hyderabad</p>
                     </div>
                 </div>
             </div>
 
             <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-                <a href="https://share.google/K5oC5NnVdxa5dQzmx" target="_blank" class="hidden lg:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-extrabold text-[11px] uppercase tracking-wider transition border border-zinc-200 whitespace-nowrap">
+                <a href="https://share.google/K5oC5NnVdxa5dQzmx" target="_blank" class="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-extrabold text-[11px] uppercase tracking-wider transition border border-zinc-200">
                     <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-600"></i> Location Map
                 </a>
-                <button onclick="toggleCartDrawer(true)" aria-label="Shopping Bag" class="relative p-2 sm:p-2.5 text-zinc-900 hover:bg-black hover:text-white active:scale-95 transition rounded-full border border-zinc-200 bg-zinc-50 shrink-0">
-                    <i data-lucide="shopping-bag" class="w-4 h-4 sm:w-5 sm:h-5"></i>
-                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-rose-600 text-white text-[9px] sm:text-[10px] font-black w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow">0</span>
+                <button onclick="toggleCartDrawer(true)" aria-label="Shopping Bag" class="relative p-2.5 text-zinc-900 hover:bg-black hover:text-white active:scale-95 transition rounded-full border border-zinc-200 bg-zinc-50">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-rose-600 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow">0</span>
                 </button>
-                <div id="auth-status-container" class="shrink-0">
-                    <button onclick="accessCustomerSection()" class="px-2.5 sm:px-4 py-2 sm:py-2.5 text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider bg-zinc-950 text-white rounded-full hover:bg-zinc-800 active:scale-95 transition flex items-center gap-1.5 shadow-xs whitespace-nowrap">
+                <div id="auth-status-container">
+                    <button onclick="accessCustomerSection()" class="px-3 sm:px-4 py-2 sm:py-2.5 text-[11px] font-extrabold uppercase tracking-wider bg-zinc-950 text-white rounded-full hover:bg-zinc-800 active:scale-95 transition flex items-center gap-1.5 shadow-xs">
                         <i data-lucide="user" class="w-3.5 h-3.5 text-amber-400"></i>
-                        <span id="header-account-label">Account</span>
+                        <span class="hidden xs:inline sm:inline" id="header-account-label">Account</span>
                     </button>
                 </div>
             </div>
@@ -227,6 +224,7 @@
 
     <main class="flex-grow">
         <div id="view-storefront">
+            <!-- Promo Strip -->
             <div class="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-zinc-950 py-2.5 px-3 text-center font-extrabold text-[11px] sm:text-xs uppercase tracking-wider shadow-xs flex flex-wrap items-center justify-center gap-1.5">
                 <span class="inline-flex items-center gap-1"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Special Offer:</span>
                 <span>Use Code <strong class="bg-zinc-950 text-amber-400 px-2 py-0.5 rounded font-mono tracking-widest">HZ10</strong> for <span class="underline decoration-2">10% OFF</span> at Checkout!</span>
@@ -252,7 +250,7 @@
 
                         <!-- Right Corner Rotating Images Gallery -->
                         <div class="shrink-0 w-full lg:w-auto flex justify-center lg:justify-end">
-                            <div id="hero-rotating-card" onclick="openHeroFeaturedModal()" class="w-full max-w-xs sm:w-72 bg-zinc-900/90 backdrop-blur-xl border border-white/15 rounded-2xl p-3 shadow-2xl cursor-pointer group hover:border-amber-400 transition-all duration-300">
+                            <div id="hero-rotating-card" onclick="openHeroFeaturedModal()" class="w-full sm:w-72 bg-zinc-900/90 backdrop-blur-xl border border-white/15 rounded-2xl p-3 shadow-2xl cursor-pointer group hover:border-amber-400 transition-all duration-300">
                                 <div class="relative aspect-[3/4] sm:aspect-[4/5] rounded-xl overflow-hidden bg-zinc-950">
                                     <img id="hero-showcase-img" src="" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                                     <span id="hero-showcase-badge" class="absolute top-2 left-2 bg-zinc-950/90 text-amber-400 text-[8px] font-black uppercase px-2 py-0.5 rounded-full tracking-wider"></span>
@@ -275,23 +273,18 @@
             <!-- Filter & Sort Toolbar -->
             <section id="catalog-section" class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
                 <div class="bg-zinc-50/90 backdrop-blur-md border border-zinc-200/90 rounded-2xl p-3 sm:p-4 mb-6 sm:mb-8 shadow-2xs">
-                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-                        <div class="w-full lg:w-auto overflow-hidden">
-                            <div class="flex items-center justify-between mb-1.5 lg:hidden">
-                                <span class="text-[9px] font-extrabold uppercase tracking-widest text-zinc-400">Swipe / Scroll Categories →</span>
-                            </div>
-                            <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto custom-h-scroll pb-2.5 pt-0.5 px-0.5">
-                                <button onclick="setDeptFilter('All')" data-dept="All" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-black text-white shadow-xs transition whitespace-nowrap">All Items</button>
-                                <button onclick="setDeptFilter('Men-Stitched')" data-dept="Men-Stitched" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition whitespace-nowrap">Men • Stitched</button>
-                                <button onclick="setDeptFilter('Men-Unstitched')" data-dept="Men-Unstitched" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition whitespace-nowrap">Men • Unstitched</button>
-                                <button onclick="setDeptFilter('Women-Stitched')" data-dept="Women-Stitched" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition whitespace-nowrap">Women • Stitched</button>
-                                <button onclick="setDeptFilter('Women-Unstitched')" data-dept="Women-Unstitched" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition whitespace-nowrap">Women • Unstitched</button>
-                                <button onclick="setDeptFilter('Others')" data-dept="Others" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition whitespace-nowrap">Matching & Others</button>
-                            </div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                        <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar pb-1 md:pb-0 -mx-1 px-1">
+                            <button onclick="setDeptFilter('All')" data-dept="All" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-black text-white shadow-xs transition">All Items</button>
+                            <button onclick="setDeptFilter('Men-Stitched')" data-dept="Men-Stitched" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition">Men • Stitched</button>
+                            <button onclick="setDeptFilter('Men-Unstitched')" data-dept="Men-Unstitched" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition">Men • Unstitched</button>
+                            <button onclick="setDeptFilter('Women-Stitched')" data-dept="Women-Stitched" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition">Women • Stitched</button>
+                            <button onclick="setDeptFilter('Women-Unstitched')" data-dept="Women-Unstitched" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition">Women • Unstitched</button>
+                            <button onclick="setDeptFilter('Others')" data-dept="Others" class="dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition">Matching & Others</button>
                         </div>
 
-                        <div class="flex items-center justify-between lg:justify-end gap-2 pt-2 lg:pt-0 border-t lg:border-t-0 border-zinc-200/70 shrink-0">
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-zinc-500 flex items-center gap-1 whitespace-nowrap">
+                        <div class="flex items-center justify-between md:justify-end gap-2 pt-2 md:pt-0 border-t md:border-t-0 border-zinc-200/70 shrink-0">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-zinc-500 flex items-center gap-1">
                                 <i data-lucide="arrow-up-down" class="w-3 h-3"></i> Sort By:
                             </span>
                             <select id="sort-select" onchange="handleSortChange(this.value)" class="bg-white border border-zinc-300 rounded-xl px-3 py-1.5 text-xs font-bold text-zinc-900 focus:outline-none focus:border-black">
@@ -304,50 +297,49 @@
                     </div>
                 </div>
 
-                <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6"></div>
+                <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6"></div>
             </section>
         </div>
 
         <!-- OWNER STUDIO VIEW -->
-        <div id="view-owner" class="hidden max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-6 sm:space-y-8">
-            <div class="bg-zinc-50 border border-zinc-200 rounded-2xl sm:rounded-3xl p-4 sm:p-8 lg:p-10 shadow-sm space-y-6 sm:space-y-8">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-zinc-200">
-                    <div class="space-y-1.5">
-                        <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
-                            <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-900 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap">Owner Verified Studio</span>
-                            <span id="owner-cloud-status-badge" class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap">Supabase Cloud Synced</span>
+        <div id="view-owner" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="bg-zinc-50 border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-sm space-y-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-zinc-200">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-[10px] font-extrabold uppercase tracking-widest">Owner Verified Studio</span>
+                            <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-[10px] font-extrabold uppercase tracking-widest">Supabase Cloud Connected (Live Orders)</span>
                         </div>
-                        <h2 class="font-display text-2xl sm:text-3xl font-bold uppercase text-zinc-950">PROPRIETOR DASHBOARD</h2>
+                        <h2 class="font-display text-3xl font-bold uppercase text-zinc-950 mt-1">PROPRIETOR DASHBOARD</h2>
                     </div>
-                    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
-                        <button onclick="switchView('store')" class="flex-1 sm:flex-none justify-center px-4 py-2.5 rounded-full bg-black hover:bg-zinc-800 text-white text-[11px] font-extrabold uppercase tracking-wider whitespace-nowrap transition">
+                    <div class="flex items-center gap-3">
+                        <button onclick="switchView('store')" class="px-5 py-2.5 rounded-full bg-black text-white text-xs font-extrabold uppercase tracking-wider">
                             View Storefront
                         </button>
-                        <button onclick="logoutOwner()" class="flex-1 sm:flex-none justify-center px-4 py-2.5 rounded-full bg-rose-600 hover:bg-rose-500 text-white text-[11px] font-extrabold uppercase tracking-wider whitespace-nowrap transition">
+                        <button onclick="logoutOwner()" class="px-5 py-2.5 rounded-full bg-rose-600 hover:bg-rose-500 text-white text-xs font-extrabold uppercase tracking-wider transition">
                             Logout Owner
                         </button>
                     </div>
                 </div>
 
-                <!-- ORDERS MANAGEMENT SECTION -->
-                <div class="bg-white border border-zinc-200 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
-                    <div class="flex flex-wrap items-center justify-between gap-2">
-                        <h3 class="font-display text-lg sm:text-xl font-bold uppercase text-zinc-950 flex items-center gap-2">
-                            <i data-lucide="package" class="w-5 h-5 text-amber-600 shrink-0"></i> Customer Orders & Delivery Tracker (<span id="owner-orders-count">0</span>)
+                <!-- ORDERS MANAGEMENT TABLE -->
+                <div class="bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-display text-xl font-bold uppercase text-zinc-950 flex items-center gap-2">
+                            <i data-lucide="package" class="w-5 h-5 text-amber-600"></i> Customer Orders & Delivery Tracker (<span id="owner-orders-count">0</span>)
                         </h3>
-                        <button onclick="loadOwnerOrders()" class="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded-xl text-[11px] font-bold uppercase whitespace-nowrap">Refresh Orders</button>
+                        <button onclick="loadOwnerOrders()" class="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded-xl text-xs font-bold uppercase">Refresh Orders</button>
                     </div>
-
-                    <div class="overflow-x-auto custom-h-scroll pb-2">
-                        <table class="w-full min-w-[820px] text-left border-collapse text-xs">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
                             <thead>
                                 <tr class="bg-zinc-100 border-b border-zinc-200 text-zinc-700 uppercase font-extrabold text-[10px]">
-                                    <th class="p-3 whitespace-nowrap">Order ID & Date</th>
+                                    <th class="p-3">Order ID & Date</th>
                                     <th class="p-3">Customer, Phone & Address</th>
                                     <th class="p-3">Items & Total</th>
-                                    <th class="p-3 whitespace-nowrap">Payment Mode</th>
-                                    <th class="p-3 whitespace-nowrap">Delivery Status</th>
-                                    <th class="p-3 text-right whitespace-nowrap">Action</th>
+                                    <th class="p-3">Payment Mode</th>
+                                    <th class="p-3">Delivery Status</th>
+                                    <th class="p-3 text-right">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="owner-orders-table-body" class="divide-y divide-zinc-200"></tbody>
@@ -355,17 +347,16 @@
                     </div>
                 </div>
 
-                <!-- CATALOG & INVENTORY MANAGEMENT SECTION -->
-                <div class="bg-white border border-zinc-200 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
-                    <div class="flex flex-wrap items-center justify-between gap-2">
-                        <h3 class="font-display text-lg sm:text-xl font-bold uppercase text-zinc-950 flex items-center gap-2">
-                            <i data-lucide="grid" class="w-5 h-5 text-amber-600 shrink-0"></i> Manage Showroom Catalog & Inventory
+                <!-- CATALOG & INVENTORY MANAGEMENT TABLE -->
+                <div class="bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-display text-xl font-bold uppercase text-zinc-950 flex items-center gap-2">
+                            <i data-lucide="grid" class="w-5 h-5 text-amber-600"></i> Manage Showroom Catalog & Inventory
                         </h3>
                         <span class="text-xs font-bold text-zinc-500">Total Items: <span id="owner-total-count">0</span></span>
                     </div>
-
-                    <div class="overflow-x-auto custom-h-scroll pb-2">
-                        <table class="w-full min-w-[750px] text-left border-collapse text-xs">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
                             <thead>
                                 <tr class="bg-zinc-100 border-b border-zinc-200 text-zinc-700 uppercase font-extrabold text-[10px]">
                                     <th class="p-3">Image & Title</th>
@@ -437,7 +428,7 @@
                             </div>
                             <div>
                                 <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Description</label>
-                                <textarea id="prod-desc" rows="2" required placeholder="Description..." class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2 text-xs text-zinc-900"></textarea>
+                                <textarea id="prod-desc" rows="2" required placeholder="Description..." class="w-full bg-zinc-50 border border-zinc-300 rounded-xl px-4 py-2 text-xs text-zinc-900 font-bold"></textarea>
                             </div>
                             <div class="flex gap-2">
                                 <button type="submit" id="publish-submit-btn" class="flex-1 py-3 bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-widest rounded-xl transition">
@@ -462,8 +453,8 @@
                         <p id="prof-contact" class="text-xs text-zinc-500"></p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button onclick="switchView('store')" class="px-4 py-2 bg-black text-white rounded-xl text-xs font-bold uppercase">Back to Collection</button>
-                        <button onclick="logoutCustomer()" class="px-4 py-2 bg-rose-600 text-white rounded-xl text-xs font-bold uppercase">Sign Out</button>
+                        <button onclick="switchView('store')" class="px-4 py-2 bg-black text-white rounded-xl text-xs font-bold uppercase whitespace-nowrap">Back to Collection</button>
+                        <button onclick="logoutCustomer()" class="px-4 py-2 bg-rose-600 text-white rounded-xl text-xs font-bold uppercase whitespace-nowrap">Sign Out</button>
                     </div>
                 </div>
 
@@ -557,34 +548,28 @@
     </footer>
 
     <!-- Mobile Bottom Navigation Bar -->
-    <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-zinc-200 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
-        <div class="flex items-center justify-between overflow-x-auto custom-h-scroll py-1.5 px-2 gap-1">
-            <button onclick="switchView('store'); setDeptFilter('All')" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-900 active:scale-95 transition shrink-0 min-w-[60px]">
-                <i data-lucide="store" class="w-5 h-5 text-amber-600"></i>
-                <span class="text-[10px] font-extrabold uppercase tracking-tight mt-0.5 whitespace-nowrap">Shop</span>
-            </button>
-            <button onclick="toggleHamburgerMenu(true)" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-black active:scale-95 transition shrink-0 min-w-[60px]">
-                <i data-lucide="layers" class="w-5 h-5"></i>
-                <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap">Categories</span>
-            </button>
-            <button onclick="toggleCartDrawer(true)" class="relative flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-black active:scale-95 transition shrink-0 min-w-[60px]">
-                <i data-lucide="shopping-bag" class="w-5 h-5"></i>
-                <span id="mobile-cart-badge" class="absolute top-0 right-2.5 bg-rose-600 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">0</span>
-                <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap">Bag</span>
-            </button>
-            <button onclick="accessCustomerSection()" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-black active:scale-95 transition shrink-0 min-w-[60px]">
-                <i data-lucide="user" class="w-5 h-5"></i>
-                <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap">Profile</span>
-            </button>
-            <button onclick="accessOwnerStudioModal()" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-amber-600 active:scale-95 transition shrink-0 min-w-[60px]">
-                <i data-lucide="lock" class="w-5 h-5 text-amber-600"></i>
-                <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap">Owner</span>
-            </button>
-            <a href="https://share.google/K5oC5NnVdxa5dQzmx" target="_blank" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-rose-600 active:scale-95 transition shrink-0 min-w-[60px]">
-                <i data-lucide="map-pin" class="w-5 h-5 text-rose-600"></i>
-                <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5 whitespace-nowrap">Map</span>
-            </a>
-        </div>
+    <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-zinc-200 flex items-center justify-around py-2 px-1 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] overflow-x-auto no-scrollbar">
+        <button onclick="switchView('store'); setDeptFilter('All')" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-900 active:scale-95 transition shrink-0">
+            <i data-lucide="store" class="w-5 h-5 text-amber-600"></i>
+            <span class="text-[10px] font-extrabold uppercase tracking-tight mt-0.5">Shop</span>
+        </button>
+        <button onclick="toggleHamburgerMenu(true)" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-black active:scale-95 transition shrink-0">
+            <i data-lucide="layers" class="w-5 h-5"></i>
+            <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5">Categories</span>
+        </button>
+        <button onclick="toggleCartDrawer(true)" class="relative flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-black active:scale-95 transition shrink-0">
+            <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+            <span id="mobile-cart-badge" class="absolute top-0 right-2 bg-rose-600 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">0</span>
+            <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5">Bag</span>
+        </button>
+        <button onclick="accessCustomerSection()" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-black active:scale-95 transition shrink-0">
+            <i data-lucide="user" class="w-5 h-5"></i>
+            <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5">Profile</span>
+        </button>
+        <a href="https://share.google/K5oC5NnVdxa5dQzmx" target="_blank" class="flex flex-col items-center justify-center py-1 px-3 text-zinc-600 hover:text-rose-600 active:scale-95 transition shrink-0">
+            <i data-lucide="map-pin" class="w-5 h-5 text-rose-600"></i>
+            <span class="text-[10px] font-bold uppercase tracking-tight mt-0.5">Map</span>
+        </a>
     </nav>
 
     <!-- Product Modal -->
@@ -654,6 +639,7 @@
                 <div class="flex-1 overflow-y-auto p-5 space-y-4">
                     <div id="cart-items-list" class="space-y-3 pb-4 border-b border-zinc-200"></div>
 
+                    <!-- If Not Logged In, Show Sign In Prompt Inside Cart -->
                     <div id="cart-auth-prompt" class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-center space-y-3">
                         <p class="text-xs font-bold text-amber-900">Please Sign In or Sign Up to complete your delivery and place order.</p>
                         <button onclick="toggleCartDrawer(false); accessCustomerSection()" class="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs uppercase tracking-widest rounded-xl transition">
@@ -661,6 +647,7 @@
                         </button>
                     </div>
 
+                    <!-- If Logged In, Show Verified Delivery Address Summary -->
                     <div id="cart-delivery-box" class="bg-zinc-50 p-4 rounded-2xl border border-zinc-200 space-y-2 hidden">
                         <div class="flex items-center justify-between">
                             <h4 class="font-display font-bold text-xs uppercase text-zinc-900 flex items-center gap-1.5">
@@ -686,7 +673,7 @@
 
                     <div class="bg-zinc-50 p-4 rounded-2xl border border-zinc-200 space-y-3">
                         <div class="flex gap-2">
-                            <input type="text" id="coupon-input" placeholder="Coupon Code: HZ10" class="flex-1 bg-white border border-zinc-300 rounded-xl px-3 py-2 text-xs font-bold uppercase text-zinc-900 placeholder:text-zinc-400">
+                            <input type="text" id="coupon-input" placeholder="Coupon Code: HZ10" class="flex-1 bg-white border border-zinc-300 rounded-xl px-3 py-2 text-xs font-bold uppercase text-zinc-900">
                             <button type="button" onclick="applyCouponCode()" class="px-4 py-2 bg-black text-white rounded-xl text-xs font-extrabold uppercase">Apply</button>
                         </div>
                         <div id="coupon-applied-msg" class="text-[11px] font-bold text-emerald-700 hidden"></div>
@@ -735,11 +722,11 @@
                 <p class="text-xs text-zinc-500">Authorized Proprietors: 98490***** & 99516*****</p>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Proprietor Phone Number</label>
-                    <input type="text" id="owner-signin-phone" maxlength="10" required placeholder="98490*****" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="text" id="owner-signin-phone" maxlength="10" required placeholder="98490*****" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                 </div>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Password</label>
-                    <input type="password" id="owner-signin-pass" required placeholder="Enter password" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="password" id="owner-signin-pass" required placeholder="Enter password" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                 </div>
                 <button type="submit" class="w-full py-3 bg-black text-white text-xs font-extrabold uppercase rounded-xl tracking-wider">Access Owner Studio</button>
                 <div class="text-center pt-2">
@@ -749,18 +736,18 @@
 
             <!-- OWNER SIGN UP FORM -->
             <form id="owner-signup-form" onsubmit="handleOwnerSignUp(event)" class="space-y-3 hidden">
-                <p class="text-xs text-amber-700 font-bold">Register proprietor ID (Authorized proprietors only)</p>
+                <p class="text-xs text-amber-700 font-bold">Register proprietor ID (Authorized numbers only)</p>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Full Name</label>
-                    <input type="text" id="owner-signup-name" required placeholder="Enter full name" oninput="validateNameInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="text" id="owner-signup-name" required placeholder="Enter full name" oninput="validateNameInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                 </div>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Proprietor Phone Number</label>
-                    <input type="text" id="owner-signup-phone" maxlength="10" required placeholder="98490*****" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="text" id="owner-signup-phone" maxlength="10" required placeholder="98490*****" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                 </div>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Create Password</label>
-                    <input type="password" id="owner-signup-pass" required placeholder="Create secure password" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="password" id="owner-signup-pass" required placeholder="Create secure password" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                 </div>
                 <button type="submit" class="w-full py-3 bg-amber-500 text-black text-xs font-extrabold uppercase rounded-xl tracking-wider">Register & Login</button>
                 <div class="text-center pt-2">
@@ -783,11 +770,11 @@
             <form id="cust-signin-form" onsubmit="handleCustSignIn(event)" class="space-y-3">
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Mobile Number (10 digits)</label>
-                    <input type="text" id="cust-signin-phone" maxlength="10" required placeholder="97045*****" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="text" id="cust-signin-phone" maxlength="10" required placeholder="97045*****" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                 </div>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Password</label>
-                    <input type="password" id="cust-signin-pass" required placeholder="••••••••" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="password" id="cust-signin-pass" required placeholder="••••••••" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                 </div>
                 <button type="submit" class="w-full py-3 bg-black text-white text-xs font-extrabold uppercase rounded-xl tracking-wider">Sign In to Account</button>
                 <div class="text-center pt-2">
@@ -795,44 +782,44 @@
                 </div>
             </form>
 
-            <!-- CUSTOMER SIGN UP FORM -->
+            <!-- CUSTOMER SIGN UP FORM (Mandatory Full Delivery Details) -->
             <form id="cust-signup-form" onsubmit="handleCustSignUp(event)" class="space-y-3 hidden">
                 <p class="text-[10px] text-zinc-500 font-extrabold uppercase tracking-wider">Mandatory Delivery Details for Registration:</p>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Full Name *</label>
-                    <input type="text" id="cust-signup-name" required placeholder="Mohammed Khan" oninput="validateNameInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="text" id="cust-signup-name" required placeholder="Mohammed Khan" oninput="validateNameInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                 </div>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Mobile Number (10 digits) *</label>
-                    <input type="text" id="cust-signup-phone" maxlength="10" required placeholder="97045*****" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="text" id="cust-signup-phone" maxlength="10" required placeholder="97045*****" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                 </div>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Street Address / Landmark *</label>
-                    <input type="text" id="cust-signup-street" required placeholder="H.No, Street name, Muradnagar" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="text" id="cust-signup-street" required placeholder="H.No, Street name, Muradnagar" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">City *</label>
-                        <input type="text" id="cust-signup-city" value="Hyderabad" required class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                        <input type="text" id="cust-signup-city" value="Hyderabad" required class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                     </div>
                     <div>
                         <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">State *</label>
-                        <input type="text" id="cust-signup-state" value="Telangana" required class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                        <input type="text" id="cust-signup-state" value="Telangana" required class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Pin Code (6 digits) *</label>
-                        <input type="text" id="cust-signup-pincode" maxlength="6" required placeholder="500001" oninput="this.value=this.value.replace(/\D/g,'')" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                        <input type="text" id="cust-signup-pincode" maxlength="6" required placeholder="500001" oninput="this.value=this.value.replace(/\D/g,'')" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                     </div>
                     <div>
                         <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Alternate Phone</label>
-                        <input type="text" id="cust-signup-altphone" maxlength="10" placeholder="Optional" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                        <input type="text" id="cust-signup-altphone" maxlength="10" placeholder="Optional" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                     </div>
                 </div>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Create Password *</label>
-                    <input type="password" id="cust-signup-pass" required placeholder="••••••••" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="password" id="cust-signup-pass" required placeholder="••••••••" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900">
                 </div>
                 <button type="submit" class="w-full py-3 bg-emerald-600 text-white text-xs font-extrabold uppercase rounded-xl tracking-wider">Create Account & Sign In</button>
                 <div class="text-center pt-2">
@@ -860,7 +847,7 @@
 
         let products = JSON.parse(localStorage.getItem('hafiz_products')) || defaultProducts;
         let cart = JSON.parse(localStorage.getItem('hafiz_cart')) || [];
-        let ordersHistory = JSON.parse(localStorage.getItem('hafiz_orders')) || [];
+        let ordersHistory = []; // Always fetched directly from Supabase
         
         let ownerSession = JSON.parse(localStorage.getItem('hafiz_owner')) || { verified: false, phone: '' };
         let customerSession = JSON.parse(localStorage.getItem('hafiz_customer')) || {
@@ -878,53 +865,119 @@
         let selectedQty = 1;
 
         function normalizeOrderRecord(ord) {
-            if (!ord) return ord;
-            const orderId = ord.orderId || ord.orderid || ('HAFIZ-' + Date.now());
-            const deliveryFee = ord.deliveryFee !== undefined ? ord.deliveryFee : (ord.deliveryfee || 15);
-            let paymentMode = ord.paymentMode || ord.paymentmode || 'Cash on Delivery';
-            let deliveryStatus = ord.deliveryStatus || ord.deliverystatus || 'Pending (Not Delivered)';
-            let customerPhone = ord.customerPhone || ord.customerphone || '';
-            let rawAddress = ord.address || '';
-
-            if (rawAddress.includes('||META:')) {
-                const parts = rawAddress.split('||META:');
-                rawAddress = parts[0];
+            if (!ord) return null;
+            let status = ord.deliveryStatus || ord["deliveryStatus"] || ord.deliverystatus || 'Pending (Not Delivered)';
+            let pay = ord.paymentMode || ord["paymentMode"] || ord.paymentmode || 'Cash on Delivery';
+            let phone = ord.customerPhone || ord["customerPhone"] || ord.customerphone || '';
+            let cleanAddress = ord.address || '';
+            
+            if (cleanAddress && typeof cleanAddress === 'string' && cleanAddress.includes('||META:')) {
                 try {
+                    const parts = cleanAddress.split('||META:');
+                    cleanAddress = parts[0].trim();
                     const meta = JSON.parse(parts[1]);
-                    if (meta.paymentMode) paymentMode = meta.paymentMode;
-                    if (meta.deliveryStatus) deliveryStatus = meta.deliveryStatus;
-                    if (meta.customerPhone) customerPhone = meta.customerPhone;
-                } catch (e) {}
+                    if (meta.status) status = meta.status;
+                    if (meta.payMode) pay = meta.payMode;
+                    if (meta.phone) phone = meta.phone;
+                } catch(e) {}
             }
-
-            if (!customerPhone && rawAddress) {
-                const match = rawAddress.match(/(\d{10})/);
-                if (match) customerPhone = match[1];
-            }
-
             return {
-                ...ord,
-                orderId,
-                deliveryFee: Number(deliveryFee) || 15,
-                customerPhone,
-                address: rawAddress,
-                paymentMode: (!paymentMode || paymentMode === 'undefined') ? 'Cash on Delivery' : paymentMode,
-                deliveryStatus: (!deliveryStatus || deliveryStatus === 'undefined') ? 'Pending (Not Delivered)' : deliveryStatus,
-                items: Array.isArray(ord.items) ? ord.items : []
+                orderId: ord.orderId || ord["orderId"] || ord.orderid || ('HAFIZ-' + Date.now()),
+                customerPhone: String(phone).trim(),
+                date: ord.date || new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
+                items: Array.isArray(ord.items) ? ord.items : [],
+                subtotal: Number(ord.subtotal) || 0,
+                deliveryFee: Number(ord.deliveryFee || ord.deliveryfee) || 15,
+                discount: Number(ord.discount) || 0,
+                total: Number(ord.total) || 0,
+                address: cleanAddress,
+                recipient: ord.recipient || '',
+                paymentMode: pay,
+                deliveryStatus: status
             };
         }
 
-        function mergeOrdersLists(cloudOrders, localOrders) {
-            const map = new Map();
-            (localOrders || []).forEach(o => {
-                const norm = normalizeOrderRecord(o);
-                if (norm && norm.orderId) map.set(norm.orderId, norm);
-            });
-            (cloudOrders || []).forEach(o => {
-                const norm = normalizeOrderRecord(o);
-                if (norm && norm.orderId) map.set(norm.orderId, norm);
-            });
-            return Array.from(map.values());
+        async function fetchAllOrdersFromSupabase() {
+            if (!supabaseClient) return [];
+            try {
+                const { data, error } = await supabaseClient.from('orders').select('*');
+                if (error) {
+                    console.error("Supabase fetch orders error:", error);
+                    return ordersHistory;
+                }
+                if (data) {
+                    ordersHistory = data.map(normalizeOrderRecord).filter(Boolean).reverse();
+                }
+                return ordersHistory;
+            } catch (err) {
+                console.error("Unexpected fetch orders error:", err);
+                return ordersHistory;
+            }
+        }
+
+        async function saveOrderToSupabase(orderObj) {
+            if (!supabaseClient) {
+                showToast('Database client not initialized!', 'error');
+                return false;
+            }
+            const norm = normalizeOrderRecord(orderObj);
+            const metaPackedAddress = `${norm.address} ||META:${JSON.stringify({
+                phone: norm.customerPhone,
+                payMode: norm.paymentMode,
+                status: norm.deliveryStatus
+            })}`;
+
+            // Attempt 1: Full camelCase schema
+            const { error: err1 } = await supabaseClient.from('orders').upsert([{
+                orderId: norm.orderId,
+                customerPhone: norm.customerPhone,
+                date: norm.date,
+                items: norm.items,
+                subtotal: norm.subtotal,
+                deliveryFee: norm.deliveryFee,
+                discount: norm.discount,
+                total: norm.total,
+                address: metaPackedAddress,
+                recipient: norm.recipient,
+                paymentMode: norm.paymentMode,
+                deliveryStatus: norm.deliveryStatus
+            }], { onConflict: 'orderId' });
+
+            if (!err1) return true;
+            console.warn("Attempt 1 (full camelCase) failed, trying Attempt 2 (core columns with packed META):", err1.message);
+
+            // Attempt 2: Core columns only (works even if customerPhone, paymentMode, deliveryStatus columns weren't added yet)
+            const { error: err2 } = await supabaseClient.from('orders').upsert([{
+                orderId: norm.orderId,
+                date: norm.date,
+                items: norm.items,
+                subtotal: norm.subtotal,
+                deliveryFee: norm.deliveryFee,
+                discount: norm.discount,
+                total: norm.total,
+                address: metaPackedAddress,
+                recipient: norm.recipient
+            }], { onConflict: 'orderId' });
+
+            if (!err2) return true;
+            console.warn("Attempt 2 failed, trying Attempt 3 (minimal columns):", err2.message);
+
+            // Attempt 3: Minimal columns fallback
+            const { error: err3 } = await supabaseClient.from('orders').upsert([{
+                orderId: norm.orderId,
+                date: norm.date,
+                items: norm.items,
+                subtotal: norm.subtotal,
+                total: norm.total,
+                address: metaPackedAddress,
+                recipient: norm.recipient
+            }]);
+
+            if (!err3) return true;
+
+            console.error("All Supabase order save attempts failed:", err3);
+            showToast('Supabase Error: ' + (err3.message || 'Check orders table RLS/schema'), 'error');
+            return false;
         }
 
         async function initSupabase() {
@@ -932,20 +985,25 @@
                 try {
                     supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                     await syncFromSupabase();
+
+                    // Subscribe to real-time changes on the orders table so Owner & Customer views auto-update
+                    supabaseClient
+                        .channel('public:orders')
+                        .on('postgres_changes', { event: '*', schema: 'public', table: 'orders' }, async () => {
+                            await fetchAllOrdersFromSupabase();
+                            const ownerView = document.getElementById('view-owner');
+                            const profileView = document.getElementById('view-profile');
+                            if (ownerView && !ownerView.classList.contains('hidden')) {
+                                renderOwnerOrdersTable();
+                            }
+                            if (profileView && !profileView.classList.contains('hidden')) {
+                                renderCustomerOrdersList();
+                            }
+                        })
+                        .subscribe();
                 } catch (err) {
                     console.error("Supabase Init Error:", err);
                 }
-            }
-        }
-
-        async function fetchAllOrdersFromSupabase() {
-            if (!supabaseClient) return [];
-            try {
-                const { data, error } = await supabaseClient.from('orders').select('*');
-                if (error || !data) return [];
-                return data.map(normalizeOrderRecord);
-            } catch (e) {
-                return [];
             }
         }
 
@@ -958,65 +1016,28 @@
                     localStorage.setItem('hafiz_products', JSON.stringify(products));
                     renderStoreCatalog();
                     startHeroShowcaseRotation();
+                } else if (products.length > 0) {
+                    await supabaseClient.from('products').upsert(products.map(p => ({
+                        id: String(p.id),
+                        name: p.name,
+                        department: p.department,
+                        stitchType: p.stitchType,
+                        availableSizes: p.availableSizes || [],
+                        price: Number(p.price) || 0,
+                        image: p.image || '',
+                        description: p.description || ''
+                    })));
                 }
-            } catch (e) {}
 
-            try {
-                const cloudOrders = await fetchAllOrdersFromSupabase();
-                ordersHistory = mergeOrdersLists(cloudOrders, ordersHistory);
-                localStorage.setItem('hafiz_orders', JSON.stringify(ordersHistory));
-            } catch (e) {}
-        }
-
-        async function saveOrderToSupabase(orderObj) {
-            if (!supabaseClient) return false;
-            const norm = normalizeOrderRecord(orderObj);
-            const metaString = JSON.stringify({
-                customerPhone: norm.customerPhone,
-                paymentMode: norm.paymentMode,
-                deliveryStatus: norm.deliveryStatus
-            });
-            const cleanAddress = (norm.address || '').split('||META:')[0];
-            const encodedAddress = `${cleanAddress}||META:${metaString}`;
-
-            try {
-                await supabaseClient.from('orders').upsert([{
-                    orderId: norm.orderId,
-                    customerPhone: norm.customerPhone,
-                    date: norm.date,
-                    items: norm.items,
-                    subtotal: norm.subtotal,
-                    deliveryFee: norm.deliveryFee,
-                    discount: norm.discount,
-                    total: norm.total,
-                    address: encodedAddress,
-                    recipient: norm.recipient,
-                    paymentMode: norm.paymentMode,
-                    deliveryStatus: norm.deliveryStatus
-                }]);
-                return true;
-            } catch (e) {
-                try {
-                    await supabaseClient.from('orders').upsert([{
-                        orderId: norm.orderId,
-                        date: norm.date,
-                        items: norm.items,
-                        subtotal: norm.subtotal,
-                        total: norm.total,
-                        address: encodedAddress,
-                        recipient: norm.recipient
-                    }]);
-                    return true;
-                } catch (err) {
-                    return false;
-                }
+                await fetchAllOrdersFromSupabase();
+            } catch (err) {
+                console.error("Sync from Supabase Error:", err);
             }
         }
 
         function saveStateToStorage() {
             localStorage.setItem('hafiz_products', JSON.stringify(products));
             localStorage.setItem('hafiz_cart', JSON.stringify(cart));
-            localStorage.setItem('hafiz_orders', JSON.stringify(ordersHistory));
             localStorage.setItem('hafiz_customer', JSON.stringify(customerSession));
             localStorage.setItem('hafiz_owner', JSON.stringify(ownerSession));
         }
@@ -1217,8 +1238,8 @@
         window.setDeptFilter = function(dept) {
             activeDeptFilter = dept;
             document.querySelectorAll('.dept-pill').forEach(b => {
-                if (b.getAttribute('data-dept') === dept) b.className = "dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-black text-white shadow-xs transition whitespace-nowrap";
-                else b.className = "dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition whitespace-nowrap";
+                if (b.getAttribute('data-dept') === dept) b.className = "dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-black text-white shadow-xs transition";
+                else b.className = "dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition";
             });
             renderStoreCatalog();
         };
@@ -1504,6 +1525,12 @@
             }
             if (cart.length === 0) { showToast('Your bag is empty!', 'error'); return; }
 
+            const btn = document.getElementById('place-order-btn');
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = 'Saving Order to Supabase Cloud...';
+            }
+
             const payMode = document.querySelector('input[name="pay-mode"]:checked').value;
             const sub = cart.reduce((sum, item) => sum + item.finalPrice, 0);
             const discAmt = Math.round((sub * discountPercent) / 100);
@@ -1513,7 +1540,7 @@
 
             const newOrder = {
                 orderId: 'HAFIZ-' + Math.floor(100000 + Math.random() * 900000),
-                customerPhone: customerSession.contact,
+                customerPhone: String(customerSession.contact).trim(),
                 date: new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
                 items: [...cart],
                 subtotal: sub,
@@ -1526,42 +1553,44 @@
                 deliveryStatus: 'Pending (Not Delivered)'
             };
 
-            ordersHistory.unshift(newOrder);
+            // Save directly to Supabase cloud database and check result
+            const savedOk = await saveOrderToSupabase(newOrder);
+
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = 'Place Order & Generate Tax Invoice';
+            }
+
+            if (!savedOk) {
+                return;
+            }
+
+            // Pull fresh orders directly from Supabase so state is 100% synced
+            await fetchAllOrdersFromSupabase();
+
             cart = []; discountPercent = 0;
             saveStateToStorage();
-
-            await saveOrderToSupabase(newOrder);
 
             document.getElementById('cart-badge').textContent = '0';
             const mobBadge = document.getElementById('mobile-cart-badge');
             if (mobBadge) mobBadge.textContent = '0';
             toggleCartDrawer(false);
-            renderCustomerProfile();
-            showToast('Order placed successfully via ' + payMode + '!');
+            showToast('Order stored in Supabase & placed via ' + payMode + '!');
             switchView('profile');
         };
 
-        window.renderCustomerProfile = async function() {
-            if (supabaseClient) {
-                try {
-                    const cloudOrders = await fetchAllOrdersFromSupabase();
-                    ordersHistory = mergeOrdersLists(cloudOrders, ordersHistory);
-                    saveStateToStorage();
-                } catch(e) {}
-            }
-
-            document.getElementById('prof-name').textContent = customerSession.name || 'Valued Customer';
-            document.getElementById('prof-contact').textContent = `Mobile: +91 ${customerSession.contact} • Verified Account`;
-            
-            document.getElementById('prof-addr-name').value = customerSession.name || '';
-            document.getElementById('prof-addr-street').value = customerSession.savedAddress.street || '';
-            document.getElementById('prof-addr-city').value = customerSession.savedAddress.city || 'Hyderabad';
-            document.getElementById('prof-addr-state').value = customerSession.savedAddress.state || 'Telangana';
-            document.getElementById('prof-addr-pincode').value = customerSession.savedAddress.pincode || '';
-            document.getElementById('prof-addr-altphone').value = customerSession.savedAddress.altphone || '';
-
+        function renderCustomerOrdersList() {
             const list = document.getElementById('profile-orders-list');
-            const myOrders = ordersHistory.filter(o => o.customerPhone === customerSession.contact || o.recipient === customerSession.name);
+            if (!list) return;
+            const custPhone = String(customerSession.contact || '').trim();
+            const custName = String(customerSession.name || '').trim().toLowerCase();
+
+            const myOrders = ordersHistory.filter(o => {
+                const oPhone = String(o.customerPhone || '').trim();
+                const oName = String(o.recipient || '').trim().toLowerCase();
+                const addrMatch = custPhone && o.address && o.address.includes(custPhone);
+                return (custPhone && oPhone === custPhone) || (custName && oName === custName) || addrMatch;
+            });
             
             if (myOrders.length === 0) {
                 list.innerHTML = `<p class="text-xs text-zinc-500 bg-white p-6 rounded-2xl border border-zinc-200 text-center">No purchases found for this account yet.</p>`;
@@ -1576,16 +1605,31 @@
                             <p class="text-xs text-zinc-400 mt-1">${ord.date} • Mode: <strong>${ord.paymentMode}</strong></p>
                         </div>
                         <div class="text-right">
-                            <p class="font-display text-lg font-bold">₹${ord.total.toLocaleString('en-IN')}</p>
-                            <span class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full ${ord.deliveryStatus && ord.deliveryStatus.includes('Delivered') ? 'bg-emerald-100 text-emerald-900' : 'bg-amber-100 text-amber-900'}">${ord.deliveryStatus || 'Pending (Not Delivered)'}</span>
+                            <p class="font-display text-lg font-bold">₹${Number(ord.total).toLocaleString('en-IN')}</p>
+                            <span class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full ${ord.deliveryStatus && ord.deliveryStatus.includes('Delivered') && !ord.deliveryStatus.includes('Not') ? 'bg-emerald-100 text-emerald-900' : 'bg-amber-100 text-amber-900'}">${ord.deliveryStatus || 'Pending (Not Delivered)'}</span>
                         </div>
                     </div>
                     <div class="space-y-1 text-xs font-bold text-zinc-800">
-                        ${ord.items.map(it => `<div>• ${it.name} (${it.subtitle}) - ₹${it.finalPrice}</div>`).join('')}
+                        ${(ord.items || []).map(it => `<div>• ${it.name} (${it.subtitle}) - ₹${it.finalPrice}</div>`).join('')}
                     </div>
                 </div>
             `).join('');
             lucide.createIcons();
+        }
+
+        window.renderCustomerProfile = async function() {
+            document.getElementById('prof-name').textContent = customerSession.name || 'Valued Customer';
+            document.getElementById('prof-contact').textContent = `Mobile: +91 ${customerSession.contact} • Verified Account`;
+            
+            document.getElementById('prof-addr-name').value = customerSession.name || '';
+            document.getElementById('prof-addr-street').value = customerSession.savedAddress.street || '';
+            document.getElementById('prof-addr-city').value = customerSession.savedAddress.city || 'Hyderabad';
+            document.getElementById('prof-addr-state').value = customerSession.savedAddress.state || 'Telangana';
+            document.getElementById('prof-addr-pincode').value = customerSession.savedAddress.pincode || '';
+            document.getElementById('prof-addr-altphone').value = customerSession.savedAddress.altphone || '';
+
+            await fetchAllOrdersFromSupabase();
+            renderCustomerOrdersList();
         };
 
         window.handleUpdateSavedAddress = function(e) {
@@ -1603,26 +1647,14 @@
             switchView('store');
         };
 
-        window.loadOwnerOrders = async function() {
-            if (supabaseClient) {
-                try {
-                    const cloudOrders = await fetchAllOrdersFromSupabase();
-                    ordersHistory = mergeOrdersLists(cloudOrders, ordersHistory);
-                    saveStateToStorage();
-                    const badge = document.getElementById('owner-cloud-status-badge');
-                    if (badge) {
-                        badge.textContent = 'Supabase Cloud Synced ✓';
-                        badge.className = 'px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-900 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap';
-                    }
-                } catch(e) {}
-            }
+        function renderOwnerOrdersTable() {
             const tbody = document.getElementById('owner-orders-table-body');
             const countEl = document.getElementById('owner-orders-count');
             if (!tbody) return;
-            countEl.textContent = ordersHistory.length;
+            if (countEl) countEl.textContent = ordersHistory.length;
 
             if (ordersHistory.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-zinc-400">No customer orders placed yet.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-zinc-400">No customer orders found in Supabase yet.</td></tr>`;
                 return;
             }
 
@@ -1634,7 +1666,12 @@
                         ${ord.customerPhone ? `<a href="tel:+91${ord.customerPhone}" class="inline-flex items-center gap-1 mt-0.5 px-2 py-0.5 bg-amber-100 text-amber-950 font-extrabold rounded text-[11px]"><i data-lucide="phone" class="w-3 h-3"></i> +91 ${ord.customerPhone}</a>` : ''}
                         <div class="text-[11px] text-zinc-500 mt-1">${ord.address}</div>
                     </td>
-                    <td class="p-3 font-bold">₹${ord.total.toLocaleString('en-IN')}<br><span class="text-[10px] text-zinc-500 font-normal">${ord.items.length} item(s)</span></td>
+                    <td class="p-3 font-bold">
+                        ₹${Number(ord.total).toLocaleString('en-IN')}
+                        <div class="text-[10px] text-zinc-600 font-normal mt-1 space-y-0.5">
+                            ${(ord.items || []).map(it => `<div>• ${it.name} (${it.subtitle})</div>`).join('')}
+                        </div>
+                    </td>
                     <td class="p-3"><span class="px-2 py-0.5 bg-zinc-100 rounded text-[10px] font-bold text-zinc-900">${ord.paymentMode}</span></td>
                     <td class="p-3">
                         <select id="status-select-${ord.orderId}" class="bg-white border border-zinc-300 rounded-xl px-2.5 py-1 text-[11px] font-bold text-zinc-900">
@@ -1651,6 +1688,11 @@
                 </tr>
             `).join('');
             lucide.createIcons();
+        }
+
+        window.loadOwnerOrders = async function() {
+            await fetchAllOrdersFromSupabase();
+            renderOwnerOrdersTable();
         };
 
         window.updateOrderStatusFromStudio = async function(orderId) {
@@ -1661,14 +1703,11 @@
             if (!ord) return;
 
             ord.deliveryStatus = newStatus;
-            saveStateToStorage();
-
-            const success = await saveOrderToSupabase(ord);
-            loadOwnerOrders();
-            if (success) {
-                showToast('Delivery status updated & synced to Supabase!');
-            } else {
-                showToast('Updated locally (Supabase sync failed)', 'error');
+            const savedOk = await saveOrderToSupabase(ord);
+            if (savedOk) {
+                await fetchAllOrdersFromSupabase();
+                renderOwnerOrdersTable();
+                showToast('Delivery status updated in Supabase: ' + newStatus);
             }
         };
 
@@ -1736,19 +1775,30 @@
             if (supabaseClient) {
                 try {
                     const { data } = await supabaseClient.from('owners').select('*').eq('phone', phone).single();
-                    if (data && data.password === pass) {
-                        ownerSession = { verified: true, phone: phone };
-                        saveStateToStorage();
-                        closeOwnerAuthModal();
-                        switchView('owner');
-                        showToast('Owner signed in successfully!');
-                        return;
+                    if (data) {
+                        if (data.password === pass) {
+                            ownerSession = { verified: true, phone: phone };
+                            saveStateToStorage();
+                            closeOwnerAuthModal();
+                            switchView('owner');
+                            showToast('Owner signed in successfully!');
+                            return;
+                        } else {
+                            showToast('Wrong password! Please check your password.', 'error');
+                            return;
+                        }
                     }
                 } catch(e) {}
             }
 
             const foundOwner = registeredOwners.find(o => o.phone === phone);
-            if ((foundOwner && foundOwner.password === pass) || pass === 'hafiz1963' || pass === 'admin123') {
+            if (foundOwner && foundOwner.password === pass) {
+                ownerSession = { verified: true, phone: phone };
+                saveStateToStorage();
+                closeOwnerAuthModal();
+                switchView('owner');
+                showToast('Owner signed in successfully!');
+            } else if (pass === 'hafiz1963' || pass === 'admin123') {
                 ownerSession = { verified: true, phone: phone };
                 saveStateToStorage();
                 closeOwnerAuthModal();
@@ -1787,7 +1837,7 @@
             localStorage.setItem('hafiz_registered_owners', JSON.stringify(registeredOwners));
 
             if (supabaseClient) {
-                try { await supabaseClient.from('owners').upsert([ownerObj]); } catch(e) {}
+                await supabaseClient.from('owners').upsert([ownerObj]);
             }
             ownerSession = { verified: true, phone: phone };
             saveStateToStorage();
@@ -1901,7 +1951,9 @@
             localStorage.setItem('hafiz_registered_customers', JSON.stringify(registeredCustomers));
 
             if (supabaseClient) {
-                try { await supabaseClient.from('customers').upsert([custObj]); } catch(e) {}
+                try {
+                    await supabaseClient.from('customers').upsert([custObj]);
+                } catch(e) {}
             }
 
             customerSession = {
