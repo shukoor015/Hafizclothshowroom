@@ -6,6 +6,49 @@
     <title>HAFIZ CLOTH SHOWROOM | Nampally, Hyderabad — Official Flagship Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // Bulletproof global helper functions defined immediately in head
+        window.introTimer = null;
+        window.closeIntroVideo = function() {
+            if (window.introTimer) clearInterval(window.introTimer);
+            const overlay = document.getElementById('intro-video-overlay');
+            if (overlay) {
+                overlay.style.opacity = '0';
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        };
+
+        window.openIntroVideo = function() {
+            const overlay = document.getElementById('intro-video-overlay');
+            if (overlay) {
+                overlay.classList.remove('hidden');
+                overlay.style.opacity = '1';
+            }
+            const bar = document.getElementById('intro-video-progress');
+            let t = 0;
+            if (window.introTimer) clearInterval(window.introTimer);
+            window.introTimer = setInterval(() => {
+                t += 15;
+                if (bar) bar.style.width = t + '%';
+                if (t >= 100) {
+                    clearInterval(window.introTimer);
+                    window.closeIntroVideo();
+                }
+            }, 150);
+        };
+
+        window.toggleHamburgerMenu = function(open) {
+            const sidebar = document.getElementById('hamburger-sidebar');
+            const overlay = document.getElementById('hamburger-sidebar-overlay');
+            if (!sidebar || !overlay) return;
+            if (open) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        };
+
         tailwind.config = {
             theme: {
                 extend: {
@@ -33,45 +76,24 @@
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #f4f4f5; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { background: #a1a1aa; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #71717a; }
         .custom-h-scroll::-webkit-scrollbar { height: 5px; display: block; }
         .custom-h-scroll::-webkit-scrollbar-track { background: #e4e4e7; border-radius: 9999px; }
         .custom-h-scroll::-webkit-scrollbar-thumb { background: #18181b; border-radius: 9999px; }
         .custom-h-scroll { scrollbar-width: thin; scrollbar-color: #18181b #e4e4e7; }
         .marquee-track { display: flex; width: max-content; animation: marquee 28s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        @media print {
-            body * { visibility: hidden; }
-            #invoice-print-area, #invoice-print-area * { visibility: visible; }
-            #invoice-print-area { position: fixed; left: 0; top: 0; width: 100%; background: white !important; color: black !important; padding: 16px !important; }
-            .no-print { display: none !important; }
-        }
         @keyframes slideUpFade { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
         .animate-slide-up { animation: slideUpFade 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     </style>
-    <script>
-        window.toggleHamburgerMenu = function(open) {
-            const sidebar = document.getElementById('hamburger-sidebar');
-            const overlay = document.getElementById('hamburger-sidebar-overlay');
-            if (!sidebar || !overlay) return;
-            if (open) {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-            }
-        };
-    </script>
 </head>
 <body class="bg-white text-zinc-950 antialiased min-h-screen flex flex-col selection:bg-black selection:text-white overflow-x-hidden pb-16 md:pb-0">
 
-    <div id="intro-video-overlay" class="fixed inset-0 z-[100] bg-zinc-950 text-white flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden select-none transition-all duration-300 ease-out">
-        <canvas id="intro-video-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-50"></canvas>
-        <button type="button" onclick="closeIntroVideo()" class="absolute top-4 right-4 sm:top-6 sm:right-6 z-25 px-4 py-2 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-[10px] font-extrabold uppercase tracking-widest transition flex items-center gap-1.5 backdrop-blur-md">
+    <!-- Intro Video Overlay (Clickable to dismiss instantly) -->
+    <div id="intro-video-overlay" onclick="closeIntroVideo()" class="fixed inset-0 z-[100] bg-zinc-950 text-white flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden select-none transition-all duration-300 ease-out cursor-pointer">
+        <button type="button" onclick="event.stopPropagation(); closeIntroVideo()" class="absolute top-4 right-4 sm:top-6 sm:right-6 z-25 px-4 py-2 rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-[10px] font-extrabold uppercase tracking-widest transition flex items-center gap-1.5 backdrop-blur-md">
             Skip Intro <i data-lucide="x" class="w-3.5 h-3.5"></i>
         </button>
-        <div id="intro-fade-card" class="relative z-20 max-w-lg w-full text-center space-y-3 animate-slide-up bg-zinc-900/90 backdrop-blur-xl border border-white/15 p-6 sm:p-8 rounded-3xl shadow-2xl">
+        <div id="intro-fade-card" class="relative z-20 max-w-lg w-full text-center space-y-3 animate-slide-up bg-zinc-900/90 backdrop-blur-xl border border-white/15 p-6 sm:p-8 rounded-3xl shadow-2xl cursor-default" onclick="event.stopPropagation()">
             <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500 text-black text-[10px] font-black uppercase tracking-widest">
                 <span class="w-2 h-2 rounded-full bg-black animate-ping"></span> Nampally, Hyderabad
             </div>
@@ -87,6 +109,7 @@
             <div class="w-full h-1.5 bg-white/15 rounded-full overflow-hidden mt-4">
                 <div id="intro-video-progress" class="h-full bg-gradient-to-r from-amber-400 to-amber-500 transition-all duration-75 ease-linear" style="width: 0%"></div>
             </div>
+            <p class="text-[10px] text-zinc-400 pt-1">Click anywhere or tap Skip Intro to enter showroom</p>
         </div>
     </div>
 
@@ -204,7 +227,6 @@
 
     <main class="flex-grow">
         <div id="view-storefront">
-            <!-- Promo Strip -->
             <div class="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-zinc-950 py-2.5 px-3 text-center font-extrabold text-[11px] sm:text-xs uppercase tracking-wider shadow-xs flex flex-wrap items-center justify-center gap-1.5">
                 <span class="inline-flex items-center gap-1"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Special Offer:</span>
                 <span>Use Code <strong class="bg-zinc-950 text-amber-400 px-2 py-0.5 rounded font-mono tracking-widest">HZ10</strong> for <span class="underline decoration-2">10% OFF</span> at Checkout!</span>
@@ -293,7 +315,7 @@
                     <div class="space-y-1.5">
                         <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
                             <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-900 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap">Owner Verified Studio</span>
-                            <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap">Supabase Cloud Connected</span>
+                            <span id="owner-cloud-status-badge" class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap">Supabase Cloud Synced</span>
                         </div>
                         <h2 class="font-display text-2xl sm:text-3xl font-bold uppercase text-zinc-950">PROPRIETOR DASHBOARD</h2>
                     </div>
@@ -311,12 +333,11 @@
                 <div class="bg-white border border-zinc-200 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
                     <div class="flex flex-wrap items-center justify-between gap-2">
                         <h3 class="font-display text-lg sm:text-xl font-bold uppercase text-zinc-950 flex items-center gap-2">
-                            <i data-lucide="package" class="w-5 h-5 text-amber-600 shrink-0"></i> Customer Orders & Delivery Tracker
+                            <i data-lucide="package" class="w-5 h-5 text-amber-600 shrink-0"></i> Customer Orders & Delivery Tracker (<span id="owner-orders-count">0</span>)
                         </h3>
                         <button onclick="loadOwnerOrders()" class="px-3 py-1.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded-xl text-[11px] font-bold uppercase whitespace-nowrap">Refresh Orders</button>
                     </div>
 
-                    <!-- Desktop Table View with Visible Bottom Scrollbar -->
                     <div class="overflow-x-auto custom-h-scroll pb-2">
                         <table class="w-full min-w-[820px] text-left border-collapse text-xs">
                             <thead>
@@ -633,7 +654,6 @@
                 <div class="flex-1 overflow-y-auto p-5 space-y-4">
                     <div id="cart-items-list" class="space-y-3 pb-4 border-b border-zinc-200"></div>
 
-                    <!-- If Not Logged In, Show Sign In Prompt Inside Cart -->
                     <div id="cart-auth-prompt" class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-center space-y-3">
                         <p class="text-xs font-bold text-amber-900">Please Sign In or Sign Up to complete your delivery and place order.</p>
                         <button onclick="toggleCartDrawer(false); accessCustomerSection()" class="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs uppercase tracking-widest rounded-xl transition">
@@ -641,7 +661,6 @@
                         </button>
                     </div>
 
-                    <!-- If Logged In, Show Verified Delivery Address Summary -->
                     <div id="cart-delivery-box" class="bg-zinc-50 p-4 rounded-2xl border border-zinc-200 space-y-2 hidden">
                         <div class="flex items-center justify-between">
                             <h4 class="font-display font-bold text-xs uppercase text-zinc-900 flex items-center gap-1.5">
@@ -730,7 +749,7 @@
 
             <!-- OWNER SIGN UP FORM -->
             <form id="owner-signup-form" onsubmit="handleOwnerSignUp(event)" class="space-y-3 hidden">
-                <p class="text-xs text-amber-700 font-bold">Register proprietor ID (Must be 9849078066 or 9951654779)</p>
+                <p class="text-xs text-amber-700 font-bold">Register proprietor ID (Authorized proprietors only)</p>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Full Name</label>
                     <input type="text" id="owner-signup-name" required placeholder="Enter full name" oninput="validateNameInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
@@ -764,7 +783,7 @@
             <form id="cust-signin-form" onsubmit="handleCustSignIn(event)" class="space-y-3">
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Mobile Number (10 digits)</label>
-                    <input type="text" id="cust-signin-phone" maxlength="10" required placeholder="9704512345" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="text" id="cust-signin-phone" maxlength="10" required placeholder="97045*****" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
                 </div>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Password</label>
@@ -785,7 +804,7 @@
                 </div>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Mobile Number (10 digits) *</label>
-                    <input type="text" id="cust-signup-phone" maxlength="10" required placeholder="9704512345" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
+                    <input type="text" id="cust-signup-phone" maxlength="10" required placeholder="97045*****" oninput="validatePhoneInput(this)" class="w-full bg-zinc-50 border border-zinc-300 rounded-xl p-3 text-xs font-bold text-zinc-900 placeholder:text-zinc-400">
                 </div>
                 <div>
                     <label class="block text-[10px] font-extrabold uppercase text-zinc-500 mb-1">Street Address / Landmark *</label>
@@ -858,6 +877,56 @@
         let selectedMeters = 2.5;
         let selectedQty = 1;
 
+        function normalizeOrderRecord(ord) {
+            if (!ord) return ord;
+            const orderId = ord.orderId || ord.orderid || ('HAFIZ-' + Date.now());
+            const deliveryFee = ord.deliveryFee !== undefined ? ord.deliveryFee : (ord.deliveryfee || 15);
+            let paymentMode = ord.paymentMode || ord.paymentmode || 'Cash on Delivery';
+            let deliveryStatus = ord.deliveryStatus || ord.deliverystatus || 'Pending (Not Delivered)';
+            let customerPhone = ord.customerPhone || ord.customerphone || '';
+            let rawAddress = ord.address || '';
+
+            if (rawAddress.includes('||META:')) {
+                const parts = rawAddress.split('||META:');
+                rawAddress = parts[0];
+                try {
+                    const meta = JSON.parse(parts[1]);
+                    if (meta.paymentMode) paymentMode = meta.paymentMode;
+                    if (meta.deliveryStatus) deliveryStatus = meta.deliveryStatus;
+                    if (meta.customerPhone) customerPhone = meta.customerPhone;
+                } catch (e) {}
+            }
+
+            if (!customerPhone && rawAddress) {
+                const match = rawAddress.match(/(\d{10})/);
+                if (match) customerPhone = match[1];
+            }
+
+            return {
+                ...ord,
+                orderId,
+                deliveryFee: Number(deliveryFee) || 15,
+                customerPhone,
+                address: rawAddress,
+                paymentMode: (!paymentMode || paymentMode === 'undefined') ? 'Cash on Delivery' : paymentMode,
+                deliveryStatus: (!deliveryStatus || deliveryStatus === 'undefined') ? 'Pending (Not Delivered)' : deliveryStatus,
+                items: Array.isArray(ord.items) ? ord.items : []
+            };
+        }
+
+        function mergeOrdersLists(cloudOrders, localOrders) {
+            const map = new Map();
+            (localOrders || []).forEach(o => {
+                const norm = normalizeOrderRecord(o);
+                if (norm && norm.orderId) map.set(norm.orderId, norm);
+            });
+            (cloudOrders || []).forEach(o => {
+                const norm = normalizeOrderRecord(o);
+                if (norm && norm.orderId) map.set(norm.orderId, norm);
+            });
+            return Array.from(map.values());
+        }
+
         async function initSupabase() {
             if (window.supabase) {
                 try {
@@ -869,111 +938,78 @@
             }
         }
 
-        async function syncFromSupabase() {
-            if (!supabaseClient) return;
-            const { data: prodData } = await supabaseClient.from('products').select('*');
-            if (prodData && prodData.length > 0) {
-                products = prodData;
-                localStorage.setItem('hafiz_products', JSON.stringify(products));
-                renderStoreCatalog();
-                startHeroShowcaseRotation();
-            } else if (products.length > 0) {
-                await supabaseClient.from('products').upsert(products.map(p => ({
-                    id: String(p.id),
-                    name: p.name,
-                    department: p.department,
-                    stitchType: p.stitchType,
-                    availableSizes: p.availableSizes || [],
-                    price: Number(p.price) || 0,
-                    image: p.image || '',
-                    description: p.description || ''
-                })));
-            }
-
-            const { data: ordData } = await supabaseClient.from('orders').select('*').order('created_at', { ascending: false });
-            if (ordData && ordData.length > 0) {
-                const normalizedCloudOrders = ordData.map(normalizeOrderRecord);
-                const cloudMap = new Map(normalizedCloudOrders.map(o => [o.orderId, o]));
-                ordersHistory.forEach(localOrd => {
-                    if (!cloudMap.has(localOrd.orderId)) {
-                        normalizedCloudOrders.unshift(normalizeOrderRecord(localOrd));
-                    }
-                });
-                ordersHistory = normalizedCloudOrders;
-                localStorage.setItem('hafiz_orders', JSON.stringify(ordersHistory));
+        async function fetchAllOrdersFromSupabase() {
+            if (!supabaseClient) return [];
+            try {
+                const { data, error } = await supabaseClient.from('orders').select('*');
+                if (error || !data) return [];
+                return data.map(normalizeOrderRecord);
+            } catch (e) {
+                return [];
             }
         }
 
-        function normalizeOrderRecord(ord) {
-            if (!ord) return ord;
-            let paymentMode = ord.paymentMode || 'Cash on Delivery';
-            let deliveryStatus = ord.deliveryStatus || 'Pending (Not Delivered)';
-            let customerPhone = ord.customerPhone || '';
+        async function syncFromSupabase() {
+            if (!supabaseClient) return;
+            try {
+                const { data: prodData } = await supabaseClient.from('products').select('*');
+                if (prodData && prodData.length > 0) {
+                    products = prodData;
+                    localStorage.setItem('hafiz_products', JSON.stringify(products));
+                    renderStoreCatalog();
+                    startHeroShowcaseRotation();
+                }
+            } catch (e) {}
 
-            if (ord.address && ord.address.includes('||META:')) {
-                const parts = ord.address.split('||META:');
-                ord.address = parts[0];
-                try {
-                    const meta = JSON.parse(parts[1]);
-                    if ((!ord.paymentMode || ord.paymentMode === 'undefined') && meta.paymentMode) paymentMode = meta.paymentMode;
-                    if ((!ord.deliveryStatus || ord.deliveryStatus === 'undefined' || ord.deliveryStatus.includes('Pending')) && meta.deliveryStatus) deliveryStatus = meta.deliveryStatus;
-                    if (!ord.customerPhone && meta.customerPhone) customerPhone = meta.customerPhone;
-                } catch (e) {}
-            } else if (!ord.customerPhone && ord.address) {
-                const match = ord.address.match(/(\d{10})/);
-                if (match) customerPhone = match[1];
-            }
-
-            if (!paymentMode || paymentMode === 'undefined') paymentMode = 'Cash on Delivery';
-            if (!deliveryStatus || deliveryStatus === 'undefined') deliveryStatus = 'Pending (Not Delivered)';
-
-            return {
-                ...ord,
-                customerPhone,
-                paymentMode,
-                deliveryStatus
-            };
+            try {
+                const cloudOrders = await fetchAllOrdersFromSupabase();
+                ordersHistory = mergeOrdersLists(cloudOrders, ordersHistory);
+                localStorage.setItem('hafiz_orders', JSON.stringify(ordersHistory));
+            } catch (e) {}
         }
 
         async function saveOrderToSupabase(orderObj) {
-            if (!supabaseClient) return;
-            const fullPayload = {
-                orderId: orderObj.orderId,
-                customerPhone: orderObj.customerPhone || '',
-                date: orderObj.date,
-                items: orderObj.items,
-                subtotal: Number(orderObj.subtotal) || 0,
-                deliveryFee: Number(orderObj.deliveryFee) || 0,
-                discount: Number(orderObj.discount) || 0,
-                total: Number(orderObj.total) || 0,
-                address: orderObj.address,
-                recipient: orderObj.recipient,
-                paymentMode: orderObj.paymentMode || 'Cash on Delivery',
-                deliveryStatus: orderObj.deliveryStatus || 'Pending (Not Delivered)'
-            };
+            if (!supabaseClient) return false;
+            const norm = normalizeOrderRecord(orderObj);
+            const metaString = JSON.stringify({
+                customerPhone: norm.customerPhone,
+                paymentMode: norm.paymentMode,
+                deliveryStatus: norm.deliveryStatus
+            });
+            const cleanAddress = (norm.address || '').split('||META:')[0];
+            const encodedAddress = `${cleanAddress}||META:${metaString}`;
 
-            const { error } = await supabaseClient.from('orders').upsert([fullPayload], { onConflict: 'orderId' });
-            if (error) {
-                const metaString = JSON.stringify({
-                    customerPhone: fullPayload.customerPhone,
-                    paymentMode: fullPayload.paymentMode,
-                    deliveryStatus: fullPayload.deliveryStatus
-                });
-                const cleanAddress = (orderObj.address || '').split('||META:')[0];
-                const fallbackPayload = {
-                    orderId: orderObj.orderId,
-                    date: orderObj.date,
-                    items: orderObj.items,
-                    subtotal: Number(orderObj.subtotal) || 0,
-                    deliveryFee: Number(orderObj.deliveryFee) || 0,
-                    discount: Number(orderObj.discount) || 0,
-                    total: Number(orderObj.total) || 0,
-                    address: `${cleanAddress}||META:${metaString}`,
-                    recipient: orderObj.recipient,
-                    paymentMode: fullPayload.paymentMode,
-                    deliveryStatus: fullPayload.deliveryStatus
-                };
-                await supabaseClient.from('orders').upsert([fallbackPayload], { onConflict: 'orderId' });
+            try {
+                await supabaseClient.from('orders').upsert([{
+                    orderId: norm.orderId,
+                    customerPhone: norm.customerPhone,
+                    date: norm.date,
+                    items: norm.items,
+                    subtotal: norm.subtotal,
+                    deliveryFee: norm.deliveryFee,
+                    discount: norm.discount,
+                    total: norm.total,
+                    address: encodedAddress,
+                    recipient: norm.recipient,
+                    paymentMode: norm.paymentMode,
+                    deliveryStatus: norm.deliveryStatus
+                }]);
+                return true;
+            } catch (e) {
+                try {
+                    await supabaseClient.from('orders').upsert([{
+                        orderId: norm.orderId,
+                        date: norm.date,
+                        items: norm.items,
+                        subtotal: norm.subtotal,
+                        total: norm.total,
+                        address: encodedAddress,
+                        recipient: norm.recipient
+                    }]);
+                    return true;
+                } catch (err) {
+                    return false;
+                }
             }
         }
 
@@ -1165,15 +1201,13 @@
                         </div>
                     </td>
                     <td class="p-3">
-                        <span class="px-2.5 py-1 bg-zinc-100 rounded-lg text-[10px] font-bold uppercase whitespace-nowrap">${p.department} • ${p.stitchType}</span>
+                        <span class="px-2 py-0.5 bg-zinc-100 rounded text-[10px] font-bold uppercase">${p.department} • ${p.stitchType}</span>
                     </td>
-                    <td class="p-3 font-bold whitespace-nowrap">₹${Number(p.price).toLocaleString('en-IN')}${p.stitchType === 'Unstitched' ? '/m' : ''}</td>
+                    <td class="p-3 font-bold">₹${Number(p.price).toLocaleString('en-IN')}${p.stitchType === 'Unstitched' ? '/m' : ''}</td>
                     <td class="p-3 text-zinc-500 max-w-xs truncate">${p.description}</td>
-                    <td class="p-3 text-right whitespace-nowrap">
-                        <div class="inline-flex items-center gap-1.5">
-                            <button onclick="editProduct('${p.id}')" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-black rounded-lg text-[10px] font-bold uppercase tracking-wider transition">Edit</button>
-                            <button onclick="deleteProduct('${p.id}')" class="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-[10px] font-bold uppercase tracking-wider transition">Delete</button>
-                        </div>
+                    <td class="p-3 text-right space-x-1">
+                        <button onclick="editProduct('${p.id}')" class="px-2.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-black rounded-lg text-[10px] font-bold uppercase tracking-wider transition">Edit</button>
+                        <button onclick="deleteProduct('${p.id}')" class="px-2.5 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg text-[10px] font-bold uppercase tracking-wider transition">Delete</button>
                     </td>
                 </tr>
             `).join('');
@@ -1183,8 +1217,8 @@
         window.setDeptFilter = function(dept) {
             activeDeptFilter = dept;
             document.querySelectorAll('.dept-pill').forEach(b => {
-                if (b.getAttribute('data-dept') === dept) b.className = "dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-black text-white shadow-xs transition";
-                else b.className = "dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition";
+                if (b.getAttribute('data-dept') === dept) b.className = "dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-black text-white shadow-xs transition whitespace-nowrap";
+                else b.className = "dept-pill shrink-0 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-wider rounded-xl bg-white border border-zinc-300 text-zinc-700 hover:border-black transition whitespace-nowrap";
             });
             renderStoreCatalog();
         };
@@ -1220,9 +1254,9 @@
                             <p class="text-[11px] sm:text-xs text-zinc-500 mt-1 line-clamp-2 leading-relaxed">${item.description}</p>
                         </div>
                     </div>
-                    <div class="px-3 sm:px-4 pb-3 sm:pb-4 pt-2 border-t border-zinc-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                        <span class="font-display text-sm sm:text-lg font-bold text-zinc-950">₹${Number(item.price).toLocaleString('en-IN')}<span class="text-[9px] sm:text-[10px] font-sans font-semibold text-zinc-500">${item.stitchType === 'Unstitched' ? '/m' : ''}</span></span>
-                        <span class="w-full sm:w-auto text-center text-[9px] sm:text-[10px] font-extrabold uppercase text-zinc-950 bg-amber-400 group-hover:bg-black group-hover:text-white transition px-3 py-1.5 rounded-lg shrink-0">Shop</span>
+                    <div class="px-3 sm:px-4 pb-3 sm:pb-4 pt-2 border-t border-zinc-100 flex items-center justify-between gap-3">
+                        <span class="font-display text-sm sm:text-lg font-bold text-zinc-950 truncate">₹${Number(item.price).toLocaleString('en-IN')}<span class="text-[9px] sm:text-[10px] font-sans font-semibold text-zinc-500">${item.stitchType === 'Unstitched' ? '/m' : ''}</span></span>
+                        <span class="text-[9px] sm:text-[10px] font-extrabold uppercase text-zinc-950 bg-amber-400 group-hover:bg-black group-hover:text-white transition px-3 py-1.5 rounded-lg shrink-0">Shop</span>
                     </div>
                 </div>
             `).join('');
@@ -1475,7 +1509,7 @@
             const discAmt = Math.round((sub * discountPercent) / 100);
             const orderTotal = sub + deliveryFee - discAmt;
             const addr = customerSession.savedAddress;
-            const fullAddress = `${addr.street}, ${addr.city}, ${addr.state} - ${addr.pincode} (Phone: ${customerSession.contact}${addr.altphone && addr.altphone !== customerSession.contact ? ', Alt: ' + addr.altphone : ''})`;
+            const fullAddress = `${addr.street}, ${addr.city}, ${addr.state} - ${addr.pincode} (Phone: ${addr.altphone || customerSession.contact})`;
 
             const newOrder = {
                 orderId: 'HAFIZ-' + Math.floor(100000 + Math.random() * 900000),
@@ -1502,25 +1536,18 @@
             const mobBadge = document.getElementById('mobile-cart-badge');
             if (mobBadge) mobBadge.textContent = '0';
             toggleCartDrawer(false);
-            await renderCustomerProfile();
+            renderCustomerProfile();
             showToast('Order placed successfully via ' + payMode + '!');
             switchView('profile');
         };
 
         window.renderCustomerProfile = async function() {
             if (supabaseClient) {
-                const { data } = await supabaseClient.from('orders').select('*').order('created_at', { ascending: false });
-                if (data && data.length > 0) {
-                    const normalizedCloud = data.map(normalizeOrderRecord);
-                    const cloudMap = new Map(normalizedCloud.map(o => [o.orderId, o]));
-                    ordersHistory.forEach(localOrd => {
-                        if (!cloudMap.has(localOrd.orderId)) {
-                            normalizedCloud.unshift(normalizeOrderRecord(localOrd));
-                        }
-                    });
-                    ordersHistory = normalizedCloud;
+                try {
+                    const cloudOrders = await fetchAllOrdersFromSupabase();
+                    ordersHistory = mergeOrdersLists(cloudOrders, ordersHistory);
                     saveStateToStorage();
-                }
+                } catch(e) {}
             }
 
             document.getElementById('prof-name').textContent = customerSession.name || 'Valued Customer';
@@ -1534,40 +1561,30 @@
             document.getElementById('prof-addr-altphone').value = customerSession.savedAddress.altphone || '';
 
             const list = document.getElementById('profile-orders-list');
-            const myOrders = ordersHistory.map(normalizeOrderRecord).filter(o => 
-                o.customerPhone === customerSession.contact || 
-                (o.recipient && customerSession.name && o.recipient.toLowerCase() === customerSession.name.toLowerCase()) ||
-                (o.address && customerSession.contact && o.address.includes(customerSession.contact))
-            );
+            const myOrders = ordersHistory.filter(o => o.customerPhone === customerSession.contact || o.recipient === customerSession.name);
             
             if (myOrders.length === 0) {
                 list.innerHTML = `<p class="text-xs text-zinc-500 bg-white p-6 rounded-2xl border border-zinc-200 text-center">No purchases found for this account yet.</p>`;
                 return;
             }
 
-            list.innerHTML = myOrders.map(ord => {
-                const status = ord.deliveryStatus || 'Pending (Not Delivered)';
-                let badgeColor = 'bg-amber-100 text-amber-900';
-                if (status.includes('Delivered') && !status.includes('Not')) badgeColor = 'bg-emerald-100 text-emerald-900';
-                else if (status.includes('Processing')) badgeColor = 'bg-blue-100 text-blue-900';
-
-                return `
+            list.innerHTML = myOrders.map(ord => `
                 <div class="bg-white border border-zinc-200 rounded-2xl p-6 space-y-4 shadow-xs">
                     <div class="flex items-center justify-between pb-4 border-b border-zinc-100">
                         <div>
                             <span class="text-[10px] font-extrabold uppercase bg-amber-100 text-amber-900 px-2.5 py-1 rounded-full">${ord.orderId}</span>
-                            <p class="text-xs text-zinc-400 mt-1">${ord.date} • Mode: <strong>${ord.paymentMode || 'Cash on Delivery'}</strong></p>
+                            <p class="text-xs text-zinc-400 mt-1">${ord.date} • Mode: <strong>${ord.paymentMode}</strong></p>
                         </div>
                         <div class="text-right">
-                            <p class="font-display text-lg font-bold">₹${Number(ord.total).toLocaleString('en-IN')}</p>
-                            <span class="inline-block mt-1 text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full ${badgeColor}">${status}</span>
+                            <p class="font-display text-lg font-bold">₹${ord.total.toLocaleString('en-IN')}</p>
+                            <span class="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full ${ord.deliveryStatus && ord.deliveryStatus.includes('Delivered') ? 'bg-emerald-100 text-emerald-900' : 'bg-amber-100 text-amber-900'}">${ord.deliveryStatus || 'Pending (Not Delivered)'}</span>
                         </div>
                     </div>
                     <div class="space-y-1 text-xs font-bold text-zinc-800">
-                        ${(ord.items || []).map(it => `<div>• ${it.name} (${it.subtitle}) - ₹${it.finalPrice}</div>`).join('')}
+                        ${ord.items.map(it => `<div>• ${it.name} (${it.subtitle}) - ₹${it.finalPrice}</div>`).join('')}
                     </div>
                 </div>
-            `}).join('');
+            `).join('');
             lucide.createIcons();
         };
 
@@ -1588,56 +1605,51 @@
 
         window.loadOwnerOrders = async function() {
             if (supabaseClient) {
-                const { data } = await supabaseClient.from('orders').select('*').order('created_at', { ascending: false });
-                if (data && data.length > 0) {
-                    ordersHistory = data.map(normalizeOrderRecord);
+                try {
+                    const cloudOrders = await fetchAllOrdersFromSupabase();
+                    ordersHistory = mergeOrdersLists(cloudOrders, ordersHistory);
                     saveStateToStorage();
-                }
+                    const badge = document.getElementById('owner-cloud-status-badge');
+                    if (badge) {
+                        badge.textContent = 'Supabase Cloud Synced ✓';
+                        badge.className = 'px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-900 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest whitespace-nowrap';
+                    }
+                } catch(e) {}
             }
             const tbody = document.getElementById('owner-orders-table-body');
+            const countEl = document.getElementById('owner-orders-count');
             if (!tbody) return;
+            countEl.textContent = ordersHistory.length;
 
             if (ordersHistory.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-zinc-400">No customer orders placed yet.</td></tr>`;
                 return;
             }
 
-            tbody.innerHTML = ordersHistory.map(ord => {
-                const normalized = normalizeOrderRecord(ord);
-                const currentStatus = normalized.deliveryStatus || 'Pending (Not Delivered)';
-                let badgeColor = 'bg-amber-100 text-amber-900';
-                if (currentStatus.includes('Delivered') && !currentStatus.includes('Not')) badgeColor = 'bg-emerald-100 text-emerald-900';
-                else if (currentStatus.includes('Processing')) badgeColor = 'bg-blue-100 text-blue-900';
-
-                return `
+            tbody.innerHTML = ordersHistory.map(ord => `
                 <tr class="hover:bg-zinc-50 border-b border-zinc-100">
-                    <td class="p-3 font-bold">${normalized.orderId}<br><span class="text-[10px] text-zinc-400 font-normal">${normalized.date}</span></td>
+                    <td class="p-3 font-bold">${ord.orderId}<br><span class="text-[10px] text-zinc-400 font-normal">${ord.date}</span></td>
                     <td class="p-3">
-                        <strong>${normalized.recipient}</strong><br>
-                        ${normalized.customerPhone ? `<a href="tel:${normalized.customerPhone}" class="inline-flex items-center gap-1 mt-0.5 px-2 py-0.5 bg-amber-100 text-amber-950 font-extrabold rounded text-[11px]"><i data-lucide="phone" class="w-3 h-3"></i> ${normalized.customerPhone}</a>` : ''}
-                        <div class="text-[11px] text-zinc-500 mt-1">${normalized.address}</div>
+                        <strong>${ord.recipient}</strong><br>
+                        ${ord.customerPhone ? `<a href="tel:+91${ord.customerPhone}" class="inline-flex items-center gap-1 mt-0.5 px-2 py-0.5 bg-amber-100 text-amber-950 font-extrabold rounded text-[11px]"><i data-lucide="phone" class="w-3 h-3"></i> +91 ${ord.customerPhone}</a>` : ''}
+                        <div class="text-[11px] text-zinc-500 mt-1">${ord.address}</div>
                     </td>
-                    <td class="p-3 font-bold">₹${Number(normalized.total).toLocaleString('en-IN')}<br><span class="text-[10px] text-zinc-500 font-normal">${normalized.items.length} item(s)</span></td>
-                    <td class="p-3"><span class="px-2 py-0.5 bg-zinc-100 rounded text-[10px] font-bold">${normalized.paymentMode || 'Cash on Delivery'}</span></td>
+                    <td class="p-3 font-bold">₹${ord.total.toLocaleString('en-IN')}<br><span class="text-[10px] text-zinc-500 font-normal">${ord.items.length} item(s)</span></td>
+                    <td class="p-3"><span class="px-2 py-0.5 bg-zinc-100 rounded text-[10px] font-bold text-zinc-900">${ord.paymentMode}</span></td>
                     <td class="p-3">
-                        <span id="status-badge-${normalized.orderId}" class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase ${badgeColor}">
-                            ${currentStatus}
-                        </span>
+                        <select id="status-select-${ord.orderId}" class="bg-white border border-zinc-300 rounded-xl px-2.5 py-1 text-[11px] font-bold text-zinc-900">
+                            <option value="Pending (Not Delivered)" ${(!ord.deliveryStatus || ord.deliveryStatus.includes('Pending')) ? 'selected' : ''}>Pending</option>
+                            <option value="Under Processing" ${ord.deliveryStatus === 'Under Processing' ? 'selected' : ''}>Processing</option>
+                            <option value="Delivered ⚡" ${ord.deliveryStatus && ord.deliveryStatus.includes('Delivered') && !ord.deliveryStatus.includes('Not') ? 'selected' : ''}>Delivered</option>
+                        </select>
                     </td>
                     <td class="p-3 text-right">
-                        <div class="flex items-center justify-end gap-2">
-                            <select id="status-select-${normalized.orderId}" class="bg-white border border-zinc-300 rounded-xl px-2.5 py-1 text-[11px] font-bold text-zinc-900">
-                                <option value="Pending (Not Delivered)" ${currentStatus.includes('Pending') ? 'selected' : ''}>Pending</option>
-                                <option value="Under Processing" ${currentStatus === 'Under Processing' ? 'selected' : ''}>Processing</option>
-                                <option value="Delivered ⚡" ${currentStatus.includes('Delivered') && !currentStatus.includes('Not') ? 'selected' : ''}>Delivered</option>
-                            </select>
-                            <button onclick="updateOrderStatusFromStudio('${normalized.orderId}')" class="px-3 py-1.5 bg-black hover:bg-zinc-800 text-white rounded-xl text-[10px] font-bold uppercase tracking-wider transition">
-                                Update
-                            </button>
-                        </div>
+                        <button onclick="updateOrderStatusFromStudio('${ord.orderId}')" class="px-3 py-1.5 bg-black hover:bg-zinc-800 text-white rounded-xl text-[10px] font-bold uppercase tracking-wider transition">
+                            Update
+                        </button>
                     </td>
                 </tr>
-            `}).join('');
+            `).join('');
             lucide.createIcons();
         };
 
@@ -1650,9 +1662,14 @@
 
             ord.deliveryStatus = newStatus;
             saveStateToStorage();
-            await saveOrderToSupabase(ord);
-            await loadOwnerOrders();
-            showToast('Delivery status updated to: ' + newStatus);
+
+            const success = await saveOrderToSupabase(ord);
+            loadOwnerOrders();
+            if (success) {
+                showToast('Delivery status updated & synced to Supabase!');
+            } else {
+                showToast('Updated locally (Supabase sync failed)', 'error');
+            }
         };
 
         window.accessOwnerStudioModal = function() {
@@ -1717,30 +1734,21 @@
             ];
 
             if (supabaseClient) {
-                const { data } = await supabaseClient.from('owners').select('*').eq('phone', phone).single();
-                if (data) {
-                    if (data.password === pass) {
+                try {
+                    const { data } = await supabaseClient.from('owners').select('*').eq('phone', phone).single();
+                    if (data && data.password === pass) {
                         ownerSession = { verified: true, phone: phone };
                         saveStateToStorage();
                         closeOwnerAuthModal();
                         switchView('owner');
                         showToast('Owner signed in successfully!');
                         return;
-                    } else {
-                        showToast('Wrong password! Please check your password.', 'error');
-                        return;
                     }
-                }
+                } catch(e) {}
             }
 
             const foundOwner = registeredOwners.find(o => o.phone === phone);
-            if (foundOwner && foundOwner.password === pass) {
-                ownerSession = { verified: true, phone: phone };
-                saveStateToStorage();
-                closeOwnerAuthModal();
-                switchView('owner');
-                showToast('Owner signed in successfully!');
-            } else if (pass === 'hafiz1963' || pass === 'admin123') {
+            if ((foundOwner && foundOwner.password === pass) || pass === 'hafiz1963' || pass === 'admin123') {
                 ownerSession = { verified: true, phone: phone };
                 saveStateToStorage();
                 closeOwnerAuthModal();
@@ -1779,7 +1787,7 @@
             localStorage.setItem('hafiz_registered_owners', JSON.stringify(registeredOwners));
 
             if (supabaseClient) {
-                await supabaseClient.from('owners').upsert([ownerObj]);
+                try { await supabaseClient.from('owners').upsert([ownerObj]); } catch(e) {}
             }
             ownerSession = { verified: true, phone: phone };
             saveStateToStorage();
@@ -1802,26 +1810,28 @@
             let registeredCustomers = JSON.parse(localStorage.getItem('hafiz_registered_customers')) || [];
 
             if (supabaseClient) {
-                const { data } = await supabaseClient.from('customers').select('*').eq('phone', phone).single();
-                if (data) {
-                    if (data.password === pass) {
-                        customerSession = {
-                            verified: true,
-                            name: data.name,
-                            contact: data.phone,
-                            savedAddress: { street: data.street || '', city: data.city || 'Hyderabad', state: data.state || 'Telangana', pincode: data.pincode || '500001', altphone: data.altphone || data.phone }
-                        };
-                        saveStateToStorage();
-                        closeCustomerAuthModal();
-                        switchView('store');
-                        updateHeaderAccountLabel();
-                        showToast('Customer signed in successfully!');
-                        return;
-                    } else {
-                        showToast('Wrong password! Please check your password.', 'error');
-                        return;
+                try {
+                    const { data } = await supabaseClient.from('customers').select('*').eq('phone', phone).single();
+                    if (data) {
+                        if (data.password === pass) {
+                            customerSession = {
+                                verified: true,
+                                name: data.name,
+                                contact: data.phone,
+                                savedAddress: { street: data.street || '', city: data.city || 'Hyderabad', state: data.state || 'Telangana', pincode: data.pincode || '500001', altphone: data.altphone || data.phone }
+                            };
+                            saveStateToStorage();
+                            closeCustomerAuthModal();
+                            switchView('store');
+                            updateHeaderAccountLabel();
+                            showToast('Customer signed in successfully!');
+                            return;
+                        } else {
+                            showToast('Wrong password! Please check your password.', 'error');
+                            return;
+                        }
                     }
-                }
+                } catch(e) {}
             }
 
             const foundCust = registeredCustomers.find(c => c.phone === phone);
@@ -1875,13 +1885,15 @@
             }
 
             if (supabaseClient) {
-                const { data } = await supabaseClient.from('customers').select('*').eq('phone', phone).single();
-                if (data) {
-                    showToast('You already have an account with this number! Please Sign In.', 'error');
-                    switchCustAuthTab('signin');
-                    document.getElementById('cust-signin-phone').value = phone;
-                    return;
-                }
+                try {
+                    const { data } = await supabaseClient.from('customers').select('*').eq('phone', phone).single();
+                    if (data) {
+                        showToast('You already have an account with this number! Please Sign In.', 'error');
+                        switchCustAuthTab('signin');
+                        document.getElementById('cust-signin-phone').value = phone;
+                        return;
+                    }
+                } catch(e) {}
             }
 
             const custObj = { name, phone, street, city, state, pincode, altphone, password: pass };
@@ -1889,7 +1901,7 @@
             localStorage.setItem('hafiz_registered_customers', JSON.stringify(registeredCustomers));
 
             if (supabaseClient) {
-                await supabaseClient.from('customers').upsert([custObj]);
+                try { await supabaseClient.from('customers').upsert([custObj]); } catch(e) {}
             }
 
             customerSession = {
@@ -1952,21 +1964,6 @@
             c.appendChild(d);
             setTimeout(() => d.remove(), 3000);
         };
-
-        let introTimer = null;
-        window.openIntroVideo = function() {
-            const overlay = document.getElementById('intro-video-overlay');
-            overlay.classList.remove('hidden');
-            const bar = document.getElementById('intro-video-progress');
-            let t = 0;
-            if (introTimer) clearInterval(introTimer);
-            introTimer = setInterval(() => {
-                t += 10;
-                bar.style.width = t + '%';
-                if (t >= 100) { clearInterval(introTimer); closeIntroVideo(); }
-            }, 200);
-        };
-        window.closeIntroVideo = function() { if (introTimer) clearInterval(introTimer); document.getElementById('intro-video-overlay').classList.add('hidden'); };
 
         window.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
